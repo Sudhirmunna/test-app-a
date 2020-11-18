@@ -12,6 +12,7 @@
   background-color: #f2f2f2;
   padding: 20px;
   flex-basis: 500px;
+  
   .form-container {
     .form-group {
       padding: 16px 0;
@@ -43,24 +44,42 @@
       }
     }
   }
-  .list-item {
-    font-size: 13px;
-    padding: 2px;
-    border-radius: 50%;
-    margin: 2px;
+
+  .result-numbers {
+    padding: 16px 0;
+    
+    .badge{
+      font-size: 14px;
+      padding: 3px;
+      border-radius: 50%;
+      margin: 3px;
+      height: 30px;
+      width: 30px;
+      display: inline-block;
+      position: relative;
+  
+      &.blueClass {
+        background-color: blue;
+        color: #fff;
+      }
+  
+      &.yellowClass {
+        background-color: yellow;
+      }
+  
+      &.greenClass {
+        background-color: green;
+        color: #fff;
+      }
+
+      .list-item {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+    }
   }
+
 }
 
-.blueClass {
-  background-color: blue;
-  color: #fff;
-}
-
-.yellowClass {
-  background-color: yellow;
-}
-
-.greenClass {
-  background-color: green;
-  color: #fff;
-}
