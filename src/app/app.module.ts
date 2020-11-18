@@ -13,6 +13,7 @@ import { HeroFormComponent } from './hero-form/hero-form.component';
   imports: [
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

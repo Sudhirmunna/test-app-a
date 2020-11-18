@@ -1,49 +1,55 @@
 <div class="page-container">
     <div class="form-container">
-        <h1>Hero Form</h1>
-        <form (ngSubmit)="onSubmit()" #heroForm="ngForm">
+        <h1>Reactive Forms Validation</h1>
+        <form (ngSubmit)="onSubmit()" [formGroup]="form">
+
             <div class="form-group">
                 <label for="blue">Blue</label>
-                <input type="number" class="form-control" id="name" min="1" max="10" required [(ngModel)]="model.blue"
-                    name="blue" #blue="ngModel" />
-                <div [hidden]="blue.valid || blue.pristine" class="alert alert-danger">
+                <input type="number" class="form-control" formControlName="blue" name="blue" min="1" max="10"/>
+                <div *ngIf="submitted && f.blue.errors?.required"  class="alert alert-danger">
                     Blue is required
                 </div>
+                <div *ngIf="(submitted && f.blue.errors?.min) || (submitted && f.blue.errors?.max)" class="alert alert-danger">
+                    Input number should be between 1 and 10.
+              </div> 
             </div>
 
             <div class="form-group">
                 <label for="yellow">Yellow</label>
-                <input type="number" required class="form-control" id="Yellow" [(ngModel)]="model.yellow" name="yellow" min="1"
-                    max="10" #yellow="ngModel"/>
-                    <div [hidden]="yellow.valid || yellow.pristine" class="alert alert-danger">
-                        Yellow is required
-                    </div>
+                <input type="number" class="form-control" formControlName="yellow" name="yellow" min="1" max="10"/>
+                <div *ngIf="submitted && f.yellow.errors?.required"  class="alert alert-danger">
+                    Yellow is required
+                </div>
+                <div *ngIf="(submitted && f.yellow.errors?.min) || (submitted && f.yellow.errors?.max)" class="alert alert-danger">
+                    Input number should be between 1 and 10.
+                </div> 
             </div>
 
             <div class="form-group">
-                <label for="max">MAX</label>
-                <input [(ngModel)]="model.max" required class="form-control" name="max" type="number"
-                    onkeypress="return event.charCode >= 48" min="1" #max="ngModel"/>
-                    <div [hidden]="max.valid || max.pristine" class="alert alert-danger">
-                        Max is required
-                    </div>
+                <label for="max">Max</label>
+                <input formControlName="green"  class="form-control" name="max" type="number" min="1"
+                    onkeypress="return event.charCode >= 48" />
+                <div *ngIf="submitted && f.green.errors"  class="alert alert-danger">
+                    Max is required
+                </div>
             </div>
 
-            <button type="submit" class="submit-button" [disabled]="!heroForm.form.valid">
+            <button type="submit" class="submit-button">
                 Submit
             </button>
         </form>
     </div>
 
-<div *ngIf="list && submitted">
-    <!-- <div > -->
-        <span class="list-item" *ngFor="let item of printList(heroForm.form.value.max)" [ngClass]="{'blueClass': ((item%heroForm.form.value.blue) == 0), 
-                 'yellowClass': ((item%heroForm.form.value.yellow) == 0) , 
-                 'greenClass': (((item%heroForm.form.value.yellow) == 0) && ((item%heroForm.form.value.blue) == 0)) }">
-            {{ item }}
-        </span>
-
-    <!-- </div> -->
+<div *ngIf="list && submitted" class="result-numbers">
+    <div class="info">
+        <h4>Result</h4>
+    </div>
+    <span class="badge" *ngFor="let item of list" 
+          [ngClass]="{'blueClass': ((item%f.blue.value) == 0), 
+                    'yellowClass': ((item%f.yellow.value) == 0) , 
+                    'greenClass': (((item%f.yellow.value) == 0) && ((item%f.blue.value) == 0)) }">
+        <span class="list-item">{{ item }}</span>
+    </span>
 </div>
 </div>
 
